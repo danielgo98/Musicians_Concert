@@ -20,10 +20,10 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "CONCERTS_SCORE")
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @ToString
 public class ConcertsScore implements Serializable {
 

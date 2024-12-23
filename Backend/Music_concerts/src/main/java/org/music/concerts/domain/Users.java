@@ -1,7 +1,6 @@
 package org.music.concerts.domain;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,28 +15,25 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "CONCERTS")
-@NoArgsConstructor
+@Table(name = "USERS")
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Concerts implements Serializable {
-
-	private static final long serialVersionUID = -5252810108629360776L;
-
+public class Users implements Serializable {
+	
+	private static final long serialVersionUID = -8338587364943094327L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_CONCERT")
-	private long idConcert;
+	@Column(name = "ID_USER")
+	private long idUser;
 	
-	@Column(name = "NAME", nullable = false)
-	private String name;
+	@Column(name = "USERNAME", nullable = false)
+	private String username;
 	
-	@Column(name = "CONCERT_DATE")
-	private LocalDate concertDate;
-	
-	@Column(name = "LOCATION")
-	private String location;
+	@Column(name = "PASSWORD", nullable = false)
+	private String password;
 
 }

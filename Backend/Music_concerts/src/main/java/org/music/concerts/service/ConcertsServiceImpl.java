@@ -1,11 +1,13 @@
 package org.music.concerts.service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.music.concerts.dao.ConcertsDAO;
 import org.music.concerts.domain.Concerts;
+import org.music.concerts.dto.ConcertScoreDTO;
 import org.music.concerts.dto.ConcertsDTO;
 import org.music.concerts.exceptions.ConcertNotFoundException;
 import org.music.concerts.mapper.ConcertsMapper;
@@ -17,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("concertsService")
 @Transactional(readOnly = true, propagation = Propagation.REQUIRED, rollbackFor = {
-		RuntimeException.class, DataAccessException.class
+		RuntimeException.class, DataAccessException.class, ConcertNotFoundException.class
 })
 public class ConcertsServiceImpl implements ConcertsService {
 	
@@ -95,6 +97,34 @@ public class ConcertsServiceImpl implements ConcertsService {
 			
 		}
 		
+	}
+
+	@Override
+	public List<ConcertScoreDTO> findAllConcertsRated() {
+		return concertsDAO.findAllConcertsWithFinalRatings();
+	}
+
+	@Override
+	public ConcertsDTO maxRatedConcert() {
+		
+		List<ConcertScoreDTO> concertsRatingList = findAllConcertsRated();
+		
+		ConcertsDTO concertDTO = null;
+		
+		ConcertScoreDTO maxConcertRate = concertsRatingList.stream()
+				.max(Comparator.comparingLong(ConcertScoreDTO::getConcertRating))
+				.orElse(null);
+		
+		if(maxConcertRate != null) {
+			Optional<Concerts> concerts = concertsDAO.findById(maxConcertRate.getConcertId());
+			
+			if(concerts.isPresent()) {
+				concertDTO = ConcertsMapper.domainToDTO(concerts.get());
+			}
+			
+		}
+		
+		return concertDTO;
 	}
 
 }

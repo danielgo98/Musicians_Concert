@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +23,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@Builder
 public class Concerts implements Serializable {
 
 	private static final long serialVersionUID = -5252810108629360776L;

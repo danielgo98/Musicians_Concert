@@ -32,7 +32,7 @@ public class ConcertsDAOCustomImpl implements ConcertsDAOCustom {
 		CriteriaQuery<ConcertScoreDTO> query = criteriaBuilder.createQuery(ConcertScoreDTO.class);
 		
 		Root<ConcertsScore> scores = query.from(ConcertsScore.class);
-		 Join<ConcertsScore, Concerts> concerts = scores.join("concert", JoinType.LEFT);
+		Join<ConcertsScore, Concerts> concerts = scores.join("concert", JoinType.LEFT);
 		
 		Expression<Long> addingRating = criteriaBuilder.coalesce(criteriaBuilder.sum(scores.get("score")), 0L);
 		

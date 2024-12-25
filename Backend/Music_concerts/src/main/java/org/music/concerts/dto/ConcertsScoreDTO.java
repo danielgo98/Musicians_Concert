@@ -19,7 +19,7 @@ public class ConcertsScoreDTO implements Serializable {
 
 	private static final long serialVersionUID = -4219202502010293372L;
 
-	private long idConcertScore;
+	private Long idConcertScore;
 
 	private ConcertsDTO concertsDTO;
 	

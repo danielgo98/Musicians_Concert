@@ -34,7 +34,7 @@ public class ConcertsScore implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_CONCERT_SCORE")
-	private long idConcertScore;
+	private Long idConcertScore;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ID_CONCERT")

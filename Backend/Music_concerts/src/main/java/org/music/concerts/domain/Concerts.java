@@ -31,7 +31,7 @@ public class Concerts implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_CONCERT")
-	private long idConcert;
+	private Long idConcert;
 	
 	@Column(name = "NAME", nullable = false)
 	private String name;

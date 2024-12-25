@@ -8,27 +8,27 @@ import org.springframework.stereotype.Component;
 public class UsersMapper {
 	
 	public static Users dtoToDomain(UsersDTO usersDTO) {
-		
+
 		Users users = Users.builder()
-						   .idUser(usersDTO.getIdUser())
-						   .username(usersDTO.getUsername())
-						   .password(usersDTO.getPassword())
-						   .build();
-		
+				.idUser(usersDTO.getIdUser())
+				.username(usersDTO.getUsername())
+				.password(usersDTO.getPassword())
+				.build();
+
 		return users;
-		
+
 	}
-	
+
 	public static UsersDTO domainToDTO(Users users) {
-		
+
 		UsersDTO usersDTO = UsersDTO.builder()
-									.idUser(users.getIdUser())
-									.username(users.getUsername())
-									.password(users.getPassword())
-									.build();
-		
+				.idUser(users.getIdUser())
+				.username(users.getUsername())
+				.password(users.getPassword())
+				.build();
+
 		return usersDTO;
-		
+
 	}
 
 }

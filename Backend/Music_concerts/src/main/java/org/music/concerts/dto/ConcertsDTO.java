@@ -20,7 +20,7 @@ public class ConcertsDTO implements Serializable {
 
 	private static final long serialVersionUID = 4906490623450578964L;
 
-	private long idConcert;
+	private Long idConcert;
 	
 	private String name;
 	

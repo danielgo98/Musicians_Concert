@@ -38,7 +38,7 @@ public class ConcertsScore implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ID_CONCERT")
-	private Concerts concert;
+	private Concerts concerts;
 	
 	@Column(name = "SCORE", nullable = false)
 	private int score;

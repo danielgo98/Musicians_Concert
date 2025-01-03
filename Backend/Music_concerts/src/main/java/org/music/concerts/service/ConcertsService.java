@@ -10,13 +10,13 @@ public interface ConcertsService {
 	
 	List<ConcertsDTO> findAllDTO();
 	
-	ConcertsDTO findDTObyId(Long idConcert);
+	ConcertsDTO findDTObyId(Long idConcert) throws ConcertNotFoundException;
 	
 	ConcertsDTO save(ConcertsDTO concertsDTO);
 	
-	ConcertsDTO update(ConcertsDTO concertsDTO) throws ConcertNotFoundException;
+	ConcertsDTO update(Long idConcert, ConcertsDTO concertsDTO) throws ConcertNotFoundException;
 	
-	void delete(ConcertsDTO concertsDTO) throws ConcertNotFoundException;
+	ConcertsDTO delete(Long idConcert) throws ConcertNotFoundException;
 	
 	List<ConcertScoreDTO> findAllConcertsRated();
 	

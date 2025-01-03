@@ -9,7 +9,7 @@ public class ConcertsScoreMapper {
 
 		ConcertsScore concertsScore = ConcertsScore.builder()
 				.idConcertScore(concertsScoreDTO.getIdConcertScore())
-				.concert(ConcertsMapper.dtoToDomain(concertsScoreDTO.getConcertsDTO()))
+				.concerts(ConcertsMapper.dtoToDomain(concertsScoreDTO.getConcertsDTO()))
 				.score(concertsScoreDTO.getScore())
 				.build();
 
@@ -20,7 +20,7 @@ public class ConcertsScoreMapper {
 
 		ConcertsScoreDTO concertsScoreDTO = ConcertsScoreDTO.builder()
 				.idConcertScore(concertsScore.getIdConcertScore())
-				.concertsDTO(ConcertsMapper.domainToDTO(concertsScore.getConcert()))
+				.concertsDTO(ConcertsMapper.domainToDTO(concertsScore.getConcerts()))
 				.score(concertsScore.getScore())
 				.build();
 

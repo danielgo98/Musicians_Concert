@@ -37,7 +37,7 @@ public class ConcertsServiceImpl implements ConcertsService {
 	}
 
 	@Override
-	public ConcertsDTO findDTObyId(Long idConcert) {
+	public ConcertsDTO findDTObyId(Long idConcert) throws ConcertNotFoundException {
 		
 		Optional<Concerts> concert = concertsDAO.findById(idConcert);
 		ConcertsDTO concertDTO = null;
@@ -45,12 +45,15 @@ public class ConcertsServiceImpl implements ConcertsService {
 		
 		if(concert.isPresent()) {
 			concertDTO = ConcertsMapper.domainToDTO(concert.get());
+		} else {
+			throw new ConcertNotFoundException("El concierto con id " + idConcert + " no existe en la base de datos");
 		}
 		
 		return concertDTO;
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public ConcertsDTO save(ConcertsDTO concertsDTO) {
 		
 		Concerts concerts = ConcertsMapper.dtoToDomain(concertsDTO);
@@ -61,42 +64,39 @@ public class ConcertsServiceImpl implements ConcertsService {
 	}
 
 	@Override
-	public ConcertsDTO update(ConcertsDTO concertsDTO) throws ConcertNotFoundException {
-		
+	@Transactional(readOnly = false)
+	public ConcertsDTO update(Long idConcert, ConcertsDTO concertsDTO) throws ConcertNotFoundException {
+
 		Optional<Concerts> concert = null;
 		Concerts concertsUpdated = null;
-		
-		if(concertsDTO.getIdConcert() != null) {
-			concert = concertsDAO.findById(concertsDTO.getIdConcert());
-			
-			if(concert.isPresent()) {
-				concertsUpdated = concertsDAO.save(ConcertsMapper.dtoToDomain(concertsDTO));
-			} else {
-				throw new ConcertNotFoundException("El concierto que desea actualizar no se encuentra en nuestra base de datos");
-			}
-			
+
+		concert = concertsDAO.findById(idConcert);
+
+		if (concert.isPresent()) {
+			concertsDTO.setIdConcert(idConcert);
+			concertsUpdated = concertsDAO.save(ConcertsMapper.dtoToDomain(concertsDTO));
+		} else {
+			throw new ConcertNotFoundException("El concierto que desea actualizar no se encuentra en la base de datos");
 		}
-		
+
 		return ConcertsMapper.domainToDTO(concertsUpdated);
 	}
 
 	@Override
-	public void delete(ConcertsDTO concertsDTO) throws ConcertNotFoundException {
-		
+	@Transactional(readOnly = false)
+	public ConcertsDTO delete(Long idConcert) throws ConcertNotFoundException {
+
 		Optional<Concerts> concert = null;
-		
-		if(concertsDTO.getIdConcert() != null) {
-			
-			concert = concertsDAO.findById(concertsDTO.getIdConcert());
-			
-			if(concert.isPresent()) {
-				concertsDAO.delete(concert.get());
-			} else {
-				throw new ConcertNotFoundException("El concierto que desea eliminar no se encuentra en nuestra base de datos");
-			}
-			
+
+		concert = concertsDAO.findById(idConcert);
+
+		if (concert.isPresent()) {
+			concertsDAO.delete(concert.get());
+		} else {
+			throw new ConcertNotFoundException("El concierto que desea eliminar no se encuentra en la base de datos");
 		}
 		
+		return ConcertsMapper.domainToDTO(concert.get());
 	}
 
 	@Override

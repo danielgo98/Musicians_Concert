@@ -17,9 +17,9 @@ public class HandleExceptionController {
 	public ResponseEntity<?> concertNotFound(ConcertNotFoundException e) {
 		
 		ErrorDTO errorDTO = ErrorDTO.builder()
-									.message(e.getMessage())
-									.date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
-									.build();
+				.message(e.getMessage())
+				.date(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+				.build();
 		
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDTO);
 	}
